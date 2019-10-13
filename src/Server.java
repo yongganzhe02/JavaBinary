@@ -13,7 +13,7 @@ public class Server {
             Socket socket = s.accept();
             System.out.println("客户端" + socket.getInetAddress().getHostAddress() + "已连接");
 
-            byte x[] = {(byte)0xaa,0x55,   0x11,0x22,   0x33,0x44,   0x55,   0x66,  0x77,(byte)0x88,   (byte)0x99};
+            byte x[] = {(byte)0xaa,0x55,   0x00,0x0e,   0x00,0x00,0x00,0x01,   (byte)0xFF,   0x01,   0x04,0x00,(byte)0xff,   (byte)0xef};
 
             //服务器写
             OutputStream output = socket.getOutputStream();

@@ -9,34 +9,53 @@ public class Client {
             Socket socket = new Socket("127.0.0.1", 9000);
             System.out.println("客户端连接服务器");
 
-
             //客户端读
             InputStream input = socket.getInputStream();
             byte[] y=new byte[(200*16)+1+11];
             input.read(y);
 
 
-            int count=0;
-            for(int i=y.length-1;i>=0;i--)
+            int length;
+            int deviceID;
+            int cmd;
+            int sn;
+            int data[]=new int[(200*16)+1];
+            int[] z=new int[y.length];
+            for(int i=0;i<z.length;i++) {
+                z[i]=y[i]&0xff;
+            }
+
+            //判断头
+            if(z[0]==0xaa&&z[1]==0x55)
             {
-                if(y[i]==0)
-                {count++;}
-                else {
-                    break;
+                length=(z[2]<<8)+z[3];
+                 int uSum=0;
+
+                //校验：
+                boolean b=false;
+                for(int i=0;i<length-1;i++)
+                {
+                    uSum=uSum+z[i];
                 }
+
+                uSum=((~uSum)+1)&0xff;
+
+                if(uSum==z[length-1])
+                {
+
+
+                    deviceID = (z[4] << 24) + (z[5] << 16) + (z[6] << 8) + (z[7]);
+                    cmd = z[8];
+                    sn = z[9];
+                    for (int i = 10; i < length - 1; i++) {
+                        data[i - 10] = z[i];
+                    }
+                    System.out.println("success!");
+                }
+
             }
 
-            String[] s=new String[y.length-count];
-            for(int i=0;i<s.length;i++) {
-                String hexString = Integer.toHexString(y[i]);
-                if(hexString.length()>=2)
-                    hexString=hexString.substring(hexString.length()-2);
-                s[i]=hexString;
-            }
 
-            for(String ss:s){
-                System.out.println(ss);
-            }
 
 
 
