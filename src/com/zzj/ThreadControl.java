@@ -1,3 +1,5 @@
+package com.zzj;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,7 +22,6 @@ public class ThreadControl extends Thread {
                 Socket socket1 = s1.accept();
                 System.out.println("客户端" + socket1.getInetAddress().getHostAddress() + "已连接");
 
-
                 InputStream input = socket1.getInputStream();
                 byte data2[] = new byte[1024];
                 input.read(data2);
@@ -29,9 +30,11 @@ public class ThreadControl extends Thread {
                 System.out.println();
                 if (s.substring(0,4).equals("find")) {
                     //服务器写
-                    System.out.println("2222222222");
+
                     OutputStream output1 = socket1.getOutputStream();
                     output1.write(DataContainer.data1);
+                    String str= new String (DataContainer.data1);
+
                 }
 
 //                if (s.substring(0,3).equals("bye")) {
@@ -42,10 +45,10 @@ public class ThreadControl extends Thread {
 //
 //                }
 
-                else{
-                    OutputStream output1 = socket1.getOutputStream();
-                    output1.write("aaaaaaaa".getBytes());
-                }
+//                else{
+//                    OutputStream output1 = socket1.getOutputStream();
+//                    output1.write("命令错误".getBytes());
+//                }
 
             }
         } catch (IOException e) {

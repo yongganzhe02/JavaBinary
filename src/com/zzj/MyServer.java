@@ -1,13 +1,15 @@
+package com.zzj;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 //检测校验服务器
-public class Server {
+public class MyServer {
     public static void main(String[] args) throws Exception {
 
         //开启服务
-        ServerSocket s = new ServerSocket(9000);
+        ServerSocket s = new ServerSocket(16800);
         System.out.println("服务已经开启,等待RFID访问");
 
         // 等待RFID来访问（如果没有RFID访问，该方法阻塞）

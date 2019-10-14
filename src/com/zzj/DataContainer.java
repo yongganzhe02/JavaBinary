@@ -1,3 +1,5 @@
+package com.zzj;
+
 public class DataContainer {
     public static int length;
     public static int deviceID;
