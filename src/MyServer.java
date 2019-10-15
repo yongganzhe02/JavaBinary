@@ -1,5 +1,3 @@
-package com.zzj;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,6 +21,10 @@ public class MyServer {
 
         ServerSocket s1 = new ServerSocket(9001);
         System.out.println("服务已经开启,等待客户端访问");
+
+        //服务器警报
+        Thread.sleep(2000);
+        new ThreadAlert().start();
 
         //服务器接收指令
         new ThreadControl(s1).start();

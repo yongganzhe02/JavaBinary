@@ -1,10 +1,10 @@
-package com.zzj;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+import java.util.Set;
 
 public class ThreadControl extends Thread {
     ServerSocket s1;
@@ -28,32 +28,30 @@ public class ThreadControl extends Thread {
                 String s = new String(data2);
                 System.out.println("接受到的命令是:" + s);
                 System.out.println();
-                if (s.substring(0,4).equals("find")) {
+                if (s.substring(0, 4).equals("find")) {
+
                     //服务器写
 
+
+                    StringBuilder ss =new StringBuilder();
+                    Set set = DataContainer.buffer.keySet();
+                    for(Object object : set){
+                        String key = (String)object;
+                        String sm = (String)(DataContainer.buffer.get(key)).get(0);
+                        ss.append(sm);
+                        ss.append("\n");
+                    }
+                    String sss = ""+ss;
+                    byte[] bytes = sss.getBytes();
                     OutputStream output1 = socket1.getOutputStream();
-                    output1.write(DataContainer.data1);
-                    String str= new String (DataContainer.data1);
+                    output1.write(bytes);
+
 
                 }
-
-//                if (s.substring(0,3).equals("bye")) {
-//                    s1.close();
-//                    socket1.close();
-//                    input.close();
-//                    break;
-//
-//                }
-
-//                else{
-//                    OutputStream output1 = socket1.getOutputStream();
-//                    output1.write("命令错误".getBytes());
-//                }
-
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
